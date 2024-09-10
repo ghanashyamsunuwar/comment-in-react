@@ -1,37 +1,46 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-const Comment = ({comment}) => {
-    
+const Comment = ({ comment }) => {
+  const [showInput, setShowInput] = useState(false);
+
   return (
     <div>
-        {
-            comment.id === '1' ? 
-            <div>
-        <input/>
-        
-        <button>
-            Comment
-        </button>
+      {comment.id === "1" ? (
+        <div>
+          <input />
+
+          <button>Comment</button>
         </div>
-        :''
-    }
-        <div style={{display:'flex', }}>
-            <span>
-                {comment.text}
-            </span>
-            <button>Replay</button>
-            <button>Delete</button>
+      ) : (
+        ""
+      )}
+      <div style={{ display: "flex", flexDirection:'column'}}>
+        <div>
+          <span>{comment.text}</span>
         </div>
         <div>
-            {comment?.replies?.map((ele) => (
-                <Comment key={ele.id} comment={ele} />
-            ))}
+          <div>
+            {
+            showInput && 
+            <input />
+            }
+          </div>
+          <div>
+            <button onClick={() => setShowInput(true) }>{showInput ? "Add" : 'Replay'}</button>
+            <button onClick={() => setShowInput(false)}>{showInput ? 'Cancel': 'Delete'}</button>
+          </div>
         </div>
+      </div>
+      <div>
+        {comment?.replies?.map((ele) => (
+          <Comment key={ele.id} comment={ele} />
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Comment
+export default Comment;
 // // Comment.js
 // import React, { useState } from 'react';
 
